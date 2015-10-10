@@ -1,5 +1,9 @@
 # baseplate
 A set of essential libraries for working with [Blockland Lua](https://github.com/portify/BlocklandLua).
+Make sure you have the BlocklandLua DLL injected, place everything here (except for README.md) in Blockland/, and do
+```Lua
+require('baseplate')
+```
 
 ##console.lua
 Allows typing ".`myCode`" in the Blockland console to run "`myCode`" as Lua. This is just raw TorqueScript using `ts.eval()` for simplicity
