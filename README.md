@@ -101,7 +101,7 @@ function clientMeta:IsAClient()
    end
 end
 
-local client = clients.FindByName('Zapk')
+local client = clients.GetByName('Zapk')
 print(client:IsAClient()) -- Yup.
 
 ```
