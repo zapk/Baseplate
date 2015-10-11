@@ -6,9 +6,6 @@ Make sure you have the BlocklandLua DLL injected, place everything here (except 
 require('baseplate')
 ```
 
-##console.lua
-Allows typing ".`myCode`" in the Blockland console to run "`myCode`" as Lua. This is just raw TorqueScript using `ts.eval()` for simplicity
-
 ##clients.lua
 Library for handling Blockland clients with Lua.
 
@@ -24,6 +21,28 @@ clients.GetByName(name) -- returns the client with that name, or nil
 --[[void]]     Client:Play3D( string profileName, vector pos )
 --[[void]]     Client:SetScore( number amount )
 --[[void]]     Client:IncScore( number amount )
+```
+####Example:
+```Lua
+local client = clients.GetByName('Zapk')
+
+print(client:GetName()) -- Zapk
+print(client:GetBLID()) -- 48126
+client:Play3D('AlarmSound', Vector(6, 2, 3)) -- Plays them 'AlarmSound' at pos '6 2 3'.
+```
+
+##players.lua
+Library for handling Blockland players with Lua.
+
+```Lua
+--[[bool]]     Client:HasPlayer()
+--[[player]]   Client:GetPlayer()
+
+--[[bool]]     Player:HasClient()
+--[[client]]   Player:GetClient()
+--[[vector]]   Player:GetPosition()
+--[[void]]     Player:SetPosition( vector pos )
+--[[void]]     Player:Kill()
 ```
 ####Example:
 ```Lua
@@ -69,6 +88,24 @@ vec:Add( Vector(5, 0, 0) ) -- adds to the vector itself
 print(tostring()) -- 10 10 15
 ```
 
+##meta.lua
+Simple library for working with important meta tables (such as Client, Player, Vector).
+####Example:
+```Lua
+local clientMeta = FindMetaTable( "Client" )
+function clientMeta:IsAClient()
+   if self:GetName() == "Zapk" then
+    return "Yup."
+   else
+    return "Barely."
+   end
+end
+
+local client = clients.FindByName('Zapk')
+print(client:IsAClient()) -- Yup.
+
+```
+
 ##timer.lua
 Simple timer library that hooks into Torque schedules. Made by [Port](https://github.com/portify).
 ####Example:
@@ -78,3 +115,6 @@ timer( 1000, function()
 end )
 -- Will print 'Hello!' in 1000ms.
 ```
+
+##console.lua
+Allows typing ".`myCode`" in the Blockland console to run "`myCode`" as Lua. This is just raw TorqueScript using `ts.eval()` for simplicity
