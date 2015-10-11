@@ -17,6 +17,8 @@
 
 local vectorMeta = {}
 
+RegisterMetaTable( "Vector", vectorMeta )
+
 function Vector( x, y, z )
    x = x or 0
    y = y or 0

@@ -1,6 +1,8 @@
 local playerMeta = {}
 local clientMeta = FindMetaTable( "Client" )
 
+RegisterMetaTable( "Player", playerMeta )
+
 local function struct(objID)
 	o = {
       objID = objID
