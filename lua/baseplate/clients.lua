@@ -1,16 +1,6 @@
--- clients.GetAll() returns a table of all clients.
--- clients.GetByBLID(blid) returns the client with that blid, or nil
--- clients.GetByName(name) returns the client with that name, or nil
-
--- string   Client:GetName()
--- number   Client:GetBLID()
--- void     Client:InstantRespawn()
--- void     Client:Play2D( string profileName )
--- void     Client:Play3D( string profileName, vector pos )
--- void     Client:SetScore( number amount )
--- void     Client:IncScore( number amount )
-
 local clientMeta = {}
+
+RegisterMetaTable( "Client", clientMeta )
 
 local function struct(objID)
 	o = {
@@ -59,13 +49,25 @@ clients = {
       end
 
       return nil
-   end
+   end,
+
+	GetBySimID = function( objID )
+		objID = tonumber(objID)
+		for k, v in pairs( clients.Getall() ) do
+			if v.objID == objID then
+				return v
+			end
+		end
+
+		return nil
+	end
 }
+
+------------------------------
 
 function clientMeta:GetName()
    local sim = ts.obj( self.objID )
    if sim == nil then
-      error( 'objID is not a valid sim object' )
       return nil
    end
 
@@ -76,7 +78,6 @@ end
 function clientMeta:GetBLID()
    local sim = ts.obj( self.objID )
    if sim == nil then
-      error( 'objID is not a valid sim object' )
       return nil
    end
 
@@ -87,7 +88,6 @@ end
 function clientMeta:InstantRespawn()
    local sim = ts.obj( self.objID )
    if sim == nil then
-      error( 'objID is not a valid sim object' )
       return
    end
 
@@ -98,7 +98,6 @@ end
 function clientMeta:Play2D( profileName )
    local sim = ts.obj( self.objID )
    if sim == nil then
-      error( 'objID is not a valid sim object' )
       return
    end
 
@@ -109,7 +108,6 @@ end
 function clientMeta:Play3D( profileName, vectorPos )
    local sim = ts.obj( self.objID )
    if sim == nil then
-      error( 'objID is not a valid sim object' )
       return
    end
 
@@ -120,7 +118,6 @@ end
 function clientMeta:SetScore( amount )
    local sim = ts.obj( self.objID )
    if sim == nil then
-      error( 'objID is not a valid sim object' )
       return
    end
 
@@ -131,7 +128,6 @@ end
 function clientMeta:IncScore( amount )
    local sim = ts.obj( self.objID )
    if sim == nil then
-      error( 'objID is not a valid sim object' )
       return
    end
 
