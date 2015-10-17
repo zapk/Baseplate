@@ -105,6 +105,35 @@ function playerMeta:SetPosition( vectorPos )
 	tfunc( sim, tostring( vectorPos ) )
 end
 
+function playerMeta:GetVelocity()
+   local sim = ts.obj( self.objID )
+   if sim == nil then
+      return nil
+   end
+
+   local tfunc = ts.func('Player', 'GetVelocity')
+
+	local str = tfunc( sim )
+	local x = tonumber( con.GetWord( str, 0 ) )
+   local y = tonumber( con.GetWord( str, 1 ) )
+   local z = tonumber( con.GetWord( str, 2 ) )
+
+   return Vector( x, y, z )
+end
+
+function playerMeta:SetVelocity( vectorVel )
+   local sim = ts.obj( self.objID )
+   if sim == nil then
+      return nil
+   end
+
+	vectorVel = vectorVel or Vector( 0, 0, 0 )
+
+   local tfunc = ts.func('Player', 'SetVelocity')
+
+	tfunc( sim, tostring( vectorVel ) )
+end
+
 function playerMeta:Kill()
    local sim = ts.obj( self.objID )
    if sim == nil then

@@ -4,15 +4,28 @@
 if timerCount == nil then timerCount = 0 end
 if timerTable == nil then timerTable = {} end
 
-function finishTimer(i)
+timer = {}
+
+function _finishTimer( i )
    i = tonumber(i)
    timerTable[i]()
    timerTable[i] = nil
 end
 
-function timer(t, f)
+timer.Create = function( ms, f )
    local i = timerCount
    timerCount = timerCount + 1
    timerTable[i] = f
-   con.schedule( t, 0, 'luaCall', 'finishTimer', i )
+   local idx = con.schedule( ms, 0, 'luaCall', '_finishTimer', i )
+   return idx
+end
+
+timer.Exists = function( idx )
+   idx = math.floor( idx )
+   return con.isEventPending( idx )
+end
+
+timer.Cancel = function( idx )
+   idx = math.floor( idx )
+   con.cancel( idx )
 end

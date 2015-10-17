@@ -6,9 +6,6 @@ Make sure you have the BlocklandLua DLL injected, place everything here (except 
 require('baseplate')
 ```
 
-##console.lua
-Allows typing ".`myCode`" in the Blockland console to run "`myCode`" as Lua. This is just raw TorqueScript using `ts.eval()` for simplicity
-
 ##clients.lua
 Library for handling Blockland clients with Lua.
 
@@ -30,8 +27,57 @@ clients.GetByName(name) -- returns the client with that name, or nil
 local client = clients.GetByName('Zapk')
 
 print(client:GetName()) -- Zapk
-print(client:GetBLID()) -- 48126
+print(client:GetBLID()) -- 44868
 client:Play3D('AlarmSound', Vector(6, 2, 3)) -- Plays them 'AlarmSound' at pos '6 2 3'.
+```
+
+##players.lua
+Library for handling Blockland players with Lua.
+
+```Lua
+--[[bool]]     Client:HasPlayer()
+--[[player]]   Client:GetPlayer()
+
+--[[bool]]     Player:HasClient()
+--[[client]]   Player:GetClient()
+--[[vector]]   Player:GetPosition()
+--[[void]]     Player:SetPosition( vector pos )
+--[[vector]]   Player:GetVelocity()
+--[[void]]     Player:SetVelocity( vector vel )
+--[[void]]     Player:Kill()
+```
+####Example:
+```Lua
+local client = clients.GetByName('Zapk')
+local player = nil
+
+if not client:HasPlayer() then return end
+player = client:GetPlayer()
+
+print( tostring( player:GetVelocity() ) ) -- 0 0 0
+player:SetVelocity( Vector( 2, 4, 6 ) )
+print( tostring( player:GetVelocity() ) ) -- 2 4 6
+
+player:Kill()
+```
+
+##commands.lua
+Library for handling client commands and messages easily with Lua.
+
+```Lua
+--[[void]]     Client:SendCommand( string cmd, ... )
+--[[void]]     BroadcastCommand( string cmd, ... )
+--[[void]]     Client:SendMessage( string tag, ... )
+--[[void]]     BroadcastMessage( string tag, ... )
+```
+####Example:
+```Lua
+local client = clients.GetByName('Zapk')
+
+client:SendCommand('MsgBoxOK', 'Hello', 'Just click "OK" please.') -- Sends a client command to the client.
+client:SendMessage('', '\x07This is white, ' .. client:GetName() .. '!') -- Sends a message to the client.
+
+BroadcastMessage('MsgAdminForce', '\x03Mr Queeba has become Super Admin (Auto)') -- Sends a message to all clients.
 ```
 
 ##vector.lua
@@ -69,12 +115,38 @@ vec:Add( Vector(5, 0, 0) ) -- adds to the vector itself
 print(tostring()) -- 10 10 15
 ```
 
-##timer.lua
-Simple timer library that hooks into Torque schedules. Made by [Port](https://github.com/portify).
+##meta.lua
+Simple library for working with important meta tables (such as Client, Player, Vector).
 ####Example:
 ```Lua
-timer( 1000, function()
-  print('Hello!')
-end )
--- Will print 'Hello!' in 1000ms.
+local clientMeta = FindMetaTable( "Client" )
+function clientMeta:IsAClient()
+   if self:GetName() == "Zapk" then
+      return "Yup."
+   else
+      return "Barely."
+   end
+end
+
+local client = clients.GetByName('Zapk')
+print(client:IsAClient()) -- Yup.
+
 ```
+
+##timer.lua
+Simple timer library that hooks into Torque schedules.
+####Example:
+```Lua
+local test = timer.Create( 1000, function()
+   print('Hello!')
+end )
+-- Will print 'Hello!' in 1000 milliseconds.
+
+if timer.Exists(test) then
+   timer.Cancel(test)
+   -- Not anymore, it won't.
+end
+```
+
+##console.lua
+Allows typing ".`myCode`" in the Blockland console to run "`myCode`" as Lua. This is just raw TorqueScript using `ts.eval()` for simplicity

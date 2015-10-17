@@ -2,6 +2,8 @@ local clientMeta = {}
 
 RegisterMetaTable( "Client", clientMeta )
 
+------------------------------
+
 local function struct(objID)
 	o = {
       objID = objID
@@ -11,6 +13,8 @@ local function struct(objID)
 
 	return o
 end
+
+------------------------------
 
 clients = {
    GetAll = function()
