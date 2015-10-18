@@ -29,6 +29,13 @@ local client = clients.GetByName('Zapk')
 print(client:GetName()) -- Zapk
 print(client:GetBLID()) -- 44868
 client:Play3D('AlarmSound', Vector(6, 2, 3)) -- Plays them 'AlarmSound' at pos '6 2 3'.
+
+for _, v in pairs( clients.GetAll() ) do
+   if v == client then
+      print(v:GetName()) -- Zapk
+      print(v:GetBLID()) -- 44868
+   end
+end
 ```
 
 ##players.lua
