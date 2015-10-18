@@ -24,7 +24,7 @@ TorqueScript  | Lua           | Appearance
 ####Example:
 ```Lua
 function ColorTest()
-   BroadcastMessage("", "\x010\x021\x032\x043\x054\x065\x076\x0b7\x0c8")
+   BroadcastMessage("", "0\x021\x032\x043\x054\x065\x076\x0b7\x0c8")
 end
 ```
 
