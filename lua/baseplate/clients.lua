@@ -67,7 +67,9 @@ clients = {
 	end
 }
 
-------------------------------
+--[[
+   METHODS
+]]--
 
 function clientMeta:GetName()
    local sim = ts.obj( self.objID )
@@ -137,4 +139,19 @@ function clientMeta:IncScore( amount )
 
    local tfunc = ts.func('GameConnection', 'incScore')
    tfunc( sim, math.floor( amount ) )
+end
+
+--[[
+   METAMETHODS
+]]--
+
+clientMeta.__eq = function( left, right )
+   left = left or {}
+   right = right or {}
+
+	if not left.objID or not right.objID then
+		return false
+	end
+
+	return left.objID == right.objID
 end

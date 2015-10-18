@@ -1,8 +1,8 @@
 -- usage:
 -- timer(1000, function() print("hey") end)
 
-if timerCount == nil then timerCount = 0 end
-if timerTable == nil then timerTable = {} end
+timerCount = timerCount or 0
+timerTable = timerTable or {}
 
 timer = {}
 
@@ -21,11 +21,9 @@ timer.Create = function( ms, f )
 end
 
 timer.Exists = function( idx )
-   idx = math.floor( idx )
    return con.isEventPending( idx )
 end
 
 timer.Cancel = function( idx )
-   idx = math.floor( idx )
    con.cancel( idx )
 end

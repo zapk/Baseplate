@@ -49,7 +49,9 @@ function clientMeta:GetPlayer()
    return ply
 end
 
-------------------------------
+--[[
+   METHODS
+]]--
 
 function playerMeta:HasClient()
    local sim = ts.obj( self.objID )
@@ -143,4 +145,19 @@ function playerMeta:Kill()
    local tfunc = ts.func('Player', 'Kill')
 
    tfunc( sim )
+end
+
+--[[
+   METAMETHODS
+]]--
+
+playerMeta.__eq = function( left, right )
+   left = left or {}
+   right = right or {}
+
+	if not left.objID or not right.objID then
+		return false
+	end
+
+	return left.objID == right.objID
 end
