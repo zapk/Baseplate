@@ -9,17 +9,17 @@ require('baseplate')
 ###Note: Torque Colours
 Colours used in TorqueScript messages (ex. \c1) do not work in Lua and will throw an error.
 
-TorqueScript  | Lua
-------------- | -------------
-\c0  | \x01
-\c1  | \x02
-\c2  | \x03
-\c3  | \x04
-\c4  | \x05
-\c5  | \x06
-\c6  | \x07
-\c7  | \x0b
-\c8  | \x0c
+TorqueScript  | Lua           | Appearance
+------------- | ------------- | -------------
+\c0           | \x01          | Red
+\c1           | \x02          | Blue
+\c2           | \x03          | Green
+\c3           | \x04          | Yellow
+\c4           | \x05          | Cyan
+\c5           | \x06          | Magenta
+\c6           | \x07          | White
+\c7           | \x0b          | Gray
+\c8           | \x0c          | Black
 
 ####Example:
 ```Lua
