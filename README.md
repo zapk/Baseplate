@@ -6,6 +6,28 @@ Make sure you have the BlocklandLua DLL injected, place everything here (except 
 require('baseplate')
 ```
 
+###Note: Torque Colours
+Colours used in TorqueScript messages (ex. \c1) do not work in Lua and will throw an error.
+
+TorqueScript  | Lua
+------------- | -------------
+\c0  | \x01
+\c1  | \x02
+\c2  | \x03
+\c3  | \x04
+\c4  | \x05
+\c5  | \x06
+\c6  | \x07
+\c7  | \x0b
+\c8  | \x0c
+
+####Example:
+```Lua
+function ColorTest()
+   BroadcastMessage("", "\x010\x021\x032\x043\x054\x065\x076\x0b7\x0c8")
+end
+```
+
 ##clients.lua
 Library for handling Blockland clients with Lua.
 
