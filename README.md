@@ -6,7 +6,7 @@ Make sure you have the BlocklandLua DLL injected, place everything here (except 
 require('baseplate')
 ```
 
-###Note: Torque Colours
+### Note: Torque Colours
 Colours used in TorqueScript messages (ex. \c1) do not work in Lua and will throw an error.
 
 TorqueScript  | Lua           | Appearance
@@ -21,14 +21,14 @@ TorqueScript  | Lua           | Appearance
 \c7           | \x0b          | Gray
 \c8           | \x0c          | Black
 
-####Example:
+#### Example:
 ```Lua
 function ColorTest()
    BroadcastMessage("", "0\x021\x032\x043\x054\x065\x076\x0b7\x0c8")
 end
 ```
 
-##clients.lua
+## clients.lua
 Library for handling Blockland clients with Lua.
 
 ```Lua
@@ -44,7 +44,7 @@ clients.GetByName(name) -- returns the client with that name, or nil
 --[[void]]     Client:SetScore( number amount )
 --[[void]]     Client:IncScore( number amount )
 ```
-####Example:
+#### Example:
 ```Lua
 local client = clients.GetByName('Zapk')
 
@@ -60,7 +60,7 @@ for _, v in pairs( clients.GetAll() ) do
 end
 ```
 
-##players.lua
+## players.lua
 Library for handling Blockland players with Lua.
 
 ```Lua
@@ -75,7 +75,7 @@ Library for handling Blockland players with Lua.
 --[[void]]     Player:SetVelocity( vector vel )
 --[[void]]     Player:Kill()
 ```
-####Example:
+#### Example:
 ```Lua
 local client = clients.GetByName('Zapk')
 local player = nil
@@ -90,7 +90,7 @@ print( tostring( player:GetVelocity() ) ) -- 2 4 6
 player:Kill()
 ```
 
-##commands.lua
+## commands.lua
 Library for handling client commands and messages easily with Lua.
 
 ```Lua
@@ -99,7 +99,7 @@ Library for handling client commands and messages easily with Lua.
 --[[void]]     Client:SendMessage( string tag, ... )
 --[[void]]     BroadcastMessage( string tag, ... )
 ```
-####Example:
+#### Example:
 ```Lua
 local client = clients.GetByName('Zapk')
 
@@ -109,7 +109,7 @@ client:SendMessage('', '\x07This is white, ' .. client:GetName() .. '!') -- Send
 BroadcastMessage('MsgAdminForce', '\x03Mr Queeba has become Super Admin (Auto)') -- Sends a message to all clients.
 ```
 
-##vector.lua
+## vector.lua
 Library for vectors that are easier to work with than Torque's. Similar to [Garry's Mod](http://wiki.garrysmod.com/page/Category:Vector).
 
 ```Lua
@@ -131,7 +131,7 @@ Vector(1, 0, 1) / 2 -- is the same as Vector(0.5, 0, 0.5)
 Vector(1, 0, 1) * 2 -- is the same as Vector(2, 0, 2)
 Vector(1, 0, 1) ^ 2 -- is the same as Vector(1, 0, 1) - exponential, 1 squared is 1 :P
 ```
-####Example:
+#### Example:
 ```Lua
 local vec = Vector(5, 10, 15)
 
@@ -144,9 +144,9 @@ vec:Add( Vector(5, 0, 0) ) -- adds to the vector itself
 print(tostring()) -- 10 10 15
 ```
 
-##meta.lua
+## meta.lua
 Simple library for working with important meta tables (such as Client, Player, Vector).
-####Example:
+#### Example:
 ```Lua
 local clientMeta = FindMetaTable( "Client" )
 function clientMeta:IsAClient()
@@ -162,9 +162,9 @@ print(client:IsAClient()) -- Yup.
 
 ```
 
-##timer.lua
+## timer.lua
 Simple timer library that hooks into Torque schedules.
-####Example:
+#### Example:
 ```Lua
 local test = timer.Create( 1000, function()
    print('Hello!')
@@ -177,5 +177,5 @@ if timer.Exists(test) then
 end
 ```
 
-##console.lua
+## console.lua
 Allows typing ".`myCode`" in the Blockland console to run "`myCode`" as Lua. This is just raw TorqueScript using `ts.eval()` for simplicity
