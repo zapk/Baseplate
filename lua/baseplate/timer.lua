@@ -27,3 +27,15 @@ end
 function timer.Cancel( idx )
 	con.cancel( idx )
 end
+
+function _baseplateThink()
+  if timer._lastLoop then
+    con.cancel(timer._lastLoop)
+  end
+
+  hook.Run('Think')
+
+  timer._lastLoop = con.schedule( 1, 0, 'luaCall', '_baseplateThink' )
+end
+
+_baseplateThink()

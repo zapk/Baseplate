@@ -28,7 +28,7 @@ hook.Run( event, ... ) -- calls all the hooks of a given event. if any of the ho
 
 Event | Description
 ----- | -----------
-Think | Called every frame or every tick on a dedicated server (wip)
+Think | Called every frame or every tick on a dedicated server
 
 *TODO:* actually add some
 
