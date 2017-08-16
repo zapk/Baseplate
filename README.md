@@ -1,4 +1,6 @@
 # baseplate
+[![GitHub (pre-)release](https://img.shields.io/github/release/zapk/baseplate/all.svg)](https://github.com/zapk/baseplate/releases)
+
 A set of essential libraries for working with [Blockland Lua](https://github.com/portify/BlocklandLua).
 
 Make sure you have the BlocklandLua DLL injected, place everything here (except for README.md) in Blockland/, and do
@@ -28,19 +30,19 @@ Think | Called every frame or every tick on a dedicated server (wip)
 ## colors.lua
 Colours used in TorqueScript messages (ex. \c1) do not work in Lua and will throw an error.
 
-TorqueScript | Lua | Appearance
------------- | --- | ----------
-\c0 | \x01 | Red
-\c1 | \x02 | Blue
-\c2 | \x03 | Green
-\c3 | \x04 | Yellow
-\c4 | \x05 | Cyan
-\c5 | \x06 | Magenta
-\c6 | \x07 | White
-\c7 | \x0b | Gray
-\c8 | \x0c | Black
+Baseplate exposes the global `color` (alias `colour` for real English) table for appending colours to chat strings.
 
-Baseplate exposes a global `color` (and `colour`) table for appending colours to chat strings.
+ID | Name
+-- | ----
+0 | red
+1 | blue
+2 | green
+3 | yellow
+4 | cyan
+5 | magenta `OR` purple
+6 | white
+7 | gray `OR` grey
+8 | black
 
 #### Example:
 ```Lua
