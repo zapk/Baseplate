@@ -13,9 +13,9 @@ function clientMeta:SendCommand( cmd, ... )
 end
 
 function BroadcastCommand( cmd, ... )
-   for k, v in pairs( clients.GetAll() ) do
-      v:SendCommand( cmd, ... )
-   end
+	for k, v in pairs( clients.GetAll() ) do
+		v:SendCommand( cmd, ... )
+	end
 end
 
 ------------------------------
@@ -31,7 +31,7 @@ function clientMeta:SendMessage( str, ... )
 end
 
 function BroadcastMessage( str, ... )
-   for k, v in pairs( clients.GetAll() ) do
-      v:SendMessage( str, ... )
-   end
+	for k, v in pairs( clients.GetAll() ) do
+		v:SendMessage( str, ... )
+	end
 end

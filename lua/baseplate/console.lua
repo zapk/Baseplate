@@ -3,20 +3,20 @@
 
 ts.eval([[
 package LuaConsole {
-   function ConsoleEntry::eval() {
-      %text = ConsoleEntry.getValue();
-      if(strpos(%text, ".") != 0) {
-         Parent::eval();
-         return;
-      }
+	function ConsoleEntry::eval() {
+		%text = ConsoleEntry.getValue();
+		if(strpos(%text, ".") != 0) {
+			Parent::eval();
+			return;
+		}
 
-      %text = getSubStr(%text, 1, strlen(%text) - 1);
+		%text = getSubStr(%text, 1, strlen(%text) - 1);
 
-      echo("Lua> " @ %text);
-      luaEval(%text);
+		echo("Lua> " @ %text);
+		luaEval(%text);
 
-      ConsoleEntry.setValue("");
-   }
+		ConsoleEntry.setValue("");
+	}
 };
 
 activatePackage(LuaConsole);
