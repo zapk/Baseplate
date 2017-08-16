@@ -82,72 +82,50 @@ clients = {
 	METHODS
 ]]--
 
-function clientMeta:GetName()
+function clientMeta:GetEngineObject()
 	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	end
+	assert(sim, 'client in use has no engine object')
+	return sim
+end
 
+function clientMeta:GetName()
+	local sim = self:GetEngineObject()
 	local tfunc = ts.func('GameConnection', 'GetPlayerName')
 	return tostring( tfunc( sim ) )
 end
 
 function clientMeta:GetBLID()
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	end
-
+	local sim = self:GetEngineObject()
 	local tfunc = ts.func('GameConnection', 'getBLID')
 	return tonumber( tfunc( sim ) )
 end
 
 function clientMeta:InstantRespawn()
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return
-	end
-
+	local sim = self:GetEngineObject()
 	local tfunc = ts.func('GameConnection', 'InstantRespawn')
 	tfunc( sim )
 end
 
 function clientMeta:Play2D( profileName )
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return
-	end
-
+	local sim = self:GetEngineObject()
 	local tfunc = ts.func('GameConnection', 'play2D')
 	tfunc( sim, tostring( profileName ) )
 end
 
 function clientMeta:Play3D( profileName, vectorPos )
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return
-	end
-
+	local sim = self:GetEngineObject()
 	local tfunc = ts.func('GameConnection', 'play3D')
 	tfunc( sim, tostring( profileName ), tostring( vectorPos ) )
 end
 
 function clientMeta:SetScore( amount )
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return
-	end
-
+	local sim = self:GetEngineObject()
 	local tfunc = ts.func('GameConnection', 'setScore')
 	tfunc( sim, math.floor( amount ) )
 end
 
 function clientMeta:IncScore( amount )
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return
-	end
-
+	local sim = self:GetEngineObject()
 	local tfunc = ts.func('GameConnection', 'incScore')
 	tfunc( sim, math.floor( amount ) )
 end

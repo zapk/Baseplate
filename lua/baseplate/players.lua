@@ -29,22 +29,15 @@ end
 ------------------------------
 
 function clientMeta:HasPlayer()
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	end
+	local sim = self:GetEngineObject()
 
 	return con.isObject( sim.player )
 end
 
 function clientMeta:GetPlayer()
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	elseif not self:HasPlayer() then
-		error( 'client has no player' )
-		return
-	end
+	local sim = self:GetEngineObject()
+
+	assert(self:HasPlayer(), 'client has no player')
 
 	local plysim = ts.obj( sim.player )
 	local ply = struct( plysim.id )
@@ -55,23 +48,21 @@ end
 	METHODS
 ]]--
 
-function playerMeta:HasClient()
+function playerMeta:GetEngineObject()
 	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	end
+	assert(sim, 'player in use has no engine object')
+	return sim
+end
 
+function playerMeta:HasClient()
+	local sim = self:GetEngineObject()
 	return con.isObject( sim.client )
 end
 
 function playerMeta:GetClient()
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	elseif not self:HasPlayer() then
-		error( 'client has no player' )
-		return
-	end
+	local sim = self:GetEngineObject()
+
+	assert(self:HasPlayer(), 'client has no player')
 
 	local clisim = ts.obj( sim.client )
 	local cli = clients.GetBySimID()
@@ -79,10 +70,7 @@ function playerMeta:GetClient()
 end
 
 function playerMeta:GetPosition()
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	end
+	local sim = self:GetEngineObject()
 
 	local tfunc = ts.func('Player', 'GetPosition')
 
@@ -95,10 +83,7 @@ function playerMeta:GetPosition()
 end
 
 function playerMeta:SetPosition( vectorPos )
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	end
+	local sim = self:GetEngineObject()
 
 	vectorPos = vectorPos or Vector( 0, 0, 0 )
 
@@ -108,10 +93,7 @@ function playerMeta:SetPosition( vectorPos )
 end
 
 function playerMeta:GetVelocity()
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	end
+	local sim = self:GetEngineObject()
 
 	local tfunc = ts.func('Player', 'GetVelocity')
 
@@ -124,40 +106,16 @@ function playerMeta:GetVelocity()
 end
 
 function playerMeta:SetVelocity( vectorVel )
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return nil
-	end
+	local sim = self:GetEngineObject()
 
 	vectorVel = vectorVel or Vector( 0, 0, 0 )
 
 	local tfunc = ts.func('Player', 'SetVelocity')
-
 	tfunc( sim, tostring( vectorVel ) )
 end
 
 function playerMeta:Kill()
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return
-	end
-
+	local sim = self:GetEngineObject()
 	local tfunc = ts.func('Player', 'Kill')
-
 	tfunc( sim )
-end
-
---[[
-	METAMETHODS
-]]--
-
-playerMeta.__eq = function( left, right )
-	left = left or {}
-	right = right or {}
-
-	if not left.objID or not right.objID then
-		return false
-	end
-
-	return left.objID == right.objID
 end
