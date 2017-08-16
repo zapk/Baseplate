@@ -36,8 +36,7 @@ clients = {
 		local ClientGroup = ts.obj( 'ClientGroup' )
 
 		for i = 0, getCount( ClientGroup ) - 1 do
-			local sim = ts.obj( getObject( ClientGroup, i ) )
-			local client = struct( sim.id )
+			local client = struct( tonumber(getObject( ClientGroup, i )) )
 			table.insert(t, client)
 		end
 

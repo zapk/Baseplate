@@ -53,7 +53,7 @@ local client = clients.GetByName('John')
 
 print(client:GetName()) -- John
 print(client:GetBLID()) -- 1337
-client:Play3D('AlarmSound', Vector(6, 2, 3)) -- Plays them 'AlarmSound' at pos '6 2 3'.
+client:Play3D('AlarmSound', Vector(6, 2, 3))
 
 for k, v in pairs( clients.GetAll() ) do
   if v == client then
