@@ -7,16 +7,16 @@ timerTable = timerTable or {}
 timer = {}
 
 function _finishTimer( i )
-	i = tonumber(i)
+  assert(timerTable[i])
 	timerTable[i]()
 	timerTable[i] = nil
 end
 
-timer.Create = function( ms, f )
+timer.Simple = function( delay, f )
 	local i = timerCount
 	timerCount = timerCount + 1
 	timerTable[i] = f
-	local idx = con.schedule( ms, 0, 'luaCall', '_finishTimer', i )
+	local idx = con.schedule( delay * 1000, 0, 'luaCall', '_finishTimer', i )
 	return idx
 end
 

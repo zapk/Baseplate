@@ -168,17 +168,17 @@ print(client:IsJohn()) -- Yup.
 ```
 
 ## timer.lua
-Simple timer library that hooks into Torque schedules.
+Timer library that hooks into Torque schedules.
 #### Example:
 ```Lua
-local test = timer.Create( 1000, function()
- print('Hello!')
+local test = timer.Simple( 1, function()
+  print('Hello!')
 end )
--- Will print 'Hello!' in 1000 milliseconds.
+-- Will print 'Hello!' in 1 second.
 
 if timer.Exists(test) then
- timer.Cancel(test)
- -- Not anymore, it won't.
+  timer.Cancel(test)
+  -- Not anymore, it won't.
 end
 ```
 
