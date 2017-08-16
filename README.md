@@ -6,7 +6,7 @@ Make sure you have the BlocklandLua DLL injected, place everything here (except 
 require('baseplate')
 ```
 
-### Note: Torque Colours
+## colors.lua
 Colours used in TorqueScript messages (ex. \c1) do not work in Lua and will throw an error.
 
 TorqueScript  | Lua           | Appearance
@@ -21,11 +21,12 @@ TorqueScript  | Lua           | Appearance
 \c7           | \x0b          | Gray
 \c8           | \x0c          | Black
 
+Baseplate exposes a global `color` (and `colour`) table for appending colours to chat strings.
+
 #### Example:
 ```Lua
-function ColorTest()
-   BroadcastMessage("", "0\x021\x032\x043\x054\x065\x076\x0b7\x0c8")
-end
+BroadcastMessage("", colors.red .. "This is red, " .. colors.blue .. "and this is blue!")
+BroadcastMessage("", colors[0] .. "This is red, " .. colors[1] .. "and this is blue!")
 ```
 
 ## clients.lua
