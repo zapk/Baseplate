@@ -3,10 +3,7 @@ local clientMeta = FindMetaTable( "Client" )
 ------------------------------
 
 function clientMeta:SendCommand( cmd, ... )
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return
-	end
+	local sim = self:GetEngineObject()
 
 	local tag = con.addTaggedString( cmd )
 	con.commandToClient( sim.id, tag, ... )
@@ -20,18 +17,18 @@ end
 
 ------------------------------
 
-function clientMeta:SendMessage( str, ... )
-	local sim = ts.obj( self.objID )
-	if sim == nil then
-		return
-	end
-
-	local tag = con.addTaggedString( str )
-	con.messageClient( sim.id, tag, ... )
+function TagString( str )
+	return con.addTaggedString( tostring(str) )
 end
 
-function BroadcastMessage( str, ... )
+function BroadcastMessageCallback( ... )
 	for k, v in pairs( clients.GetAll() ) do
-		v:SendMessage( str, ... )
+		v:SendMessage( ... )
+	end
+end
+
+function BroadcastMessageCallback( callback, ... )
+	for k, v in pairs( clients.GetAll() ) do
+		v:SendMessage( callback, ... )
 	end
 end

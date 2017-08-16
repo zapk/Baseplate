@@ -129,3 +129,13 @@ function clientMeta:IncScore( amount )
 	local tfunc = ts.func('GameConnection', 'incScore')
 	tfunc( sim, math.floor( amount ) )
 end
+
+function clientMeta:SendMessage( ... )
+	local sim = self:GetEngineObject()
+	con.messageClient( sim.id, TagString(""), ... )
+end
+
+function clientMeta:SendMessageCallback( callback, ... )
+	local sim = self:GetEngineObject()
+	con.messageClient( sim.id, TagString(callback), ... )
+end
