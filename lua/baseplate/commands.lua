@@ -21,7 +21,7 @@ function TagString( str )
 	return con.addTaggedString( tostring(str) )
 end
 
-function BroadcastMessageCallback( ... )
+function BroadcastMessage( ... )
 	for k, v in pairs( clients.GetAll() ) do
 		v:SendMessage( ... )
 	end
