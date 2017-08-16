@@ -9,24 +9,24 @@ require('baseplate')
 ## colors.lua
 Colours used in TorqueScript messages (ex. \c1) do not work in Lua and will throw an error.
 
-TorqueScript  | Lua           | Appearance
+TorqueScript  | Lua     | Appearance
 ------------- | ------------- | -------------
-\c0           | \x01          | Red
-\c1           | \x02          | Blue
-\c2           | \x03          | Green
-\c3           | \x04          | Yellow
-\c4           | \x05          | Cyan
-\c5           | \x06          | Magenta
-\c6           | \x07          | White
-\c7           | \x0b          | Gray
-\c8           | \x0c          | Black
+\c0     | \x01    | Red
+\c1     | \x02    | Blue
+\c2     | \x03    | Green
+\c3     | \x04    | Yellow
+\c4     | \x05    | Cyan
+\c5     | \x06    | Magenta
+\c6     | \x07    | White
+\c7     | \x0b    | Gray
+\c8     | \x0c    | Black
 
 Baseplate exposes a global `color` (and `colour`) table for appending colours to chat strings.
 
 #### Example:
 ```Lua
-BroadcastMessage("", colors.red .. "This is red, " .. colors.blue .. "and this is blue!")
-BroadcastMessage("", colors[0] .. "This is red, " .. colors[1] .. "and this is blue!")
+BroadcastMessage(colors.red .. "This is red, " .. colors.blue .. "and this is blue!")
+BroadcastMessage(colors[0] .. "This is red, " .. colors[1] .. "and this is blue!")
 ```
 
 ## clients.lua
@@ -37,27 +37,31 @@ clients.GetAll() -- returns a table of all clients.
 clients.GetByBLID(blid) -- returns the client with that blid, or nil
 clients.GetByName(name) -- returns the client with that name, or nil
 
---[[string]]   Client:GetName()
---[[number]]   Client:GetBLID()
---[[void]]     Client:InstantRespawn()
---[[void]]     Client:Play2D( string profileName )
---[[void]]     Client:Play3D( string profileName, vector pos )
---[[void]]     Client:SetScore( number amount )
---[[void]]     Client:IncScore( number amount )
+--[[string]] Client:GetName()
+--[[number]] Client:GetBLID()
+--[[void]]   Client:InstantRespawn()
+--[[void]]   Client:Play2D( string profileName )
+--[[void]]   Client:Play3D( string profileName, vector pos )
+--[[void]]   Client:SetScore( number amount )
+--[[void]]   Client:IncScore( number amount )
+--[[void]]   Client:SendMessage( ... )
+--[[void]]   Client:SendMessageCallback( string callback, ... )
 ```
 #### Example:
 ```Lua
-local client = clients.GetByName('Zapk')
+local client = clients.GetByName('John')
 
-print(client:GetName()) -- Zapk
-print(client:GetBLID()) -- 44868
+print(client:GetName()) -- John
+print(client:GetBLID()) -- 1337
 client:Play3D('AlarmSound', Vector(6, 2, 3)) -- Plays them 'AlarmSound' at pos '6 2 3'.
 
-for _, v in pairs( clients.GetAll() ) do
-   if v == client then
-      print(v:GetName()) -- Zapk
-      print(v:GetBLID()) -- 44868
-   end
+for k, v in pairs( clients.GetAll() ) do
+  if v == client then
+    print(v:GetName()) -- John
+    print(v:GetBLID()) -- 1337
+    v:SendMessage('Hello, John!')
+    v:SendMessage(TagString('Hello, %1!'), 'John')
+  end
 end
 ```
 
@@ -65,20 +69,20 @@ end
 Library for handling Blockland players with Lua.
 
 ```Lua
---[[bool]]     Client:HasPlayer()
---[[player]]   Client:GetPlayer()
+--[[bool]]   Client:HasPlayer()
+--[[player]] Client:GetPlayer()
 
---[[bool]]     Player:HasClient()
---[[client]]   Player:GetClient()
---[[vector]]   Player:GetPosition()
---[[void]]     Player:SetPosition( vector pos )
---[[vector]]   Player:GetVelocity()
---[[void]]     Player:SetVelocity( vector vel )
---[[void]]     Player:Kill()
+--[[bool]]   Player:HasClient()
+--[[client]] Player:GetClient()
+--[[vector]] Player:GetPosition()
+--[[void]]   Player:SetPosition( vector pos )
+--[[vector]] Player:GetVelocity()
+--[[void]]   Player:SetVelocity( vector vel )
+--[[void]]   Player:Kill()
 ```
 #### Example:
 ```Lua
-local client = clients.GetByName('Zapk')
+local client = clients.GetByName('John')
 local player = nil
 
 if not client:HasPlayer() then return end
@@ -95,32 +99,32 @@ player:Kill()
 Library for handling client commands and messages easily with Lua.
 
 ```Lua
---[[void]]     Client:SendCommand( string cmd, ... )
---[[void]]     BroadcastCommand( string cmd, ... )
---[[void]]     Client:SendMessage( string tag, ... )
---[[void]]     BroadcastMessage( string tag, ... )
+--[[void]]   Client:SendCommand( string cmd, ... )
+--[[void]]   BroadcastCommand( string cmd, ... )
+--[[void]]   BroadcastMessage( ... )
+--[[void]]   BroadcastMessageCallback( string callback, ... )
 ```
 #### Example:
 ```Lua
-local client = clients.GetByName('Zapk')
+local client = clients.GetByName('John')
 
 client:SendCommand('MsgBoxOK', 'Hello', 'Just click "OK" please.') -- Sends a client command to the client.
-client:SendMessage('', '\x07This is white, ' .. client:GetName() .. '!') -- Sends a message to the client.
+client:SendMessage(colors.white .. 'This is white, ' .. client:GetName() .. '!') -- Sends a message to the client.
 
-BroadcastMessage('MsgAdminForce', '\x03Mr Queeba has become Super Admin (Auto)') -- Sends a message to all clients.
+BroadcastMessageCallback('MsgAdminForce', colors.green .. 'Mr Queeba has become Super Admin (Auto)') -- Sends a message to all clients.
 ```
 
 ## vector.lua
 Library for vectors that are easier to work with than Torque's. Similar to [Garry's Mod](http://wiki.garrysmod.com/page/Category:Vector).
 
 ```Lua
---[[void]]     Vector:Add( Vector other )
---[[void]]     Vector:Sub( Vector other )
---[[vector]]   Vector:Cross( Vector other )
---[[number]]   Vector:Distance( Vector other )
---[[number]]   Vector:Dot( Vector other )
---[[number]]   Vector:Length()
---[[void]]     Vector:Normalize()
+--[[void]]   Vector:Add( Vector other )
+--[[void]]   Vector:Sub( Vector other )
+--[[vector]] Vector:Cross( Vector other )
+--[[number]] Vector:Distance( Vector other )
+--[[number]] Vector:Dot( Vector other )
+--[[number]] Vector:Length()
+--[[void]]   Vector:Normalize()
 
 tostring( Vector(1, 2, 3) ) -- returns "1 2 3"
 ```
@@ -150,16 +154,16 @@ Simple library for working with important meta tables (such as Client, Player, V
 #### Example:
 ```Lua
 local clientMeta = FindMetaTable( "Client" )
-function clientMeta:IsAClient()
-   if self:GetName() == "Zapk" then
-      return "Yup."
-   else
-      return "Barely."
-   end
+function clientMeta:IsJohn()
+  if self:GetName() == "John" then
+  return "Yup."
+  else
+  return "Barely."
+  end
 end
 
-local client = clients.GetByName('Zapk')
-print(client:IsAClient()) -- Yup.
+local client = clients.GetByName('John')
+print(client:IsJohn()) -- Yup.
 
 ```
 
@@ -168,13 +172,13 @@ Simple timer library that hooks into Torque schedules.
 #### Example:
 ```Lua
 local test = timer.Create( 1000, function()
-   print('Hello!')
+ print('Hello!')
 end )
 -- Will print 'Hello!' in 1000 milliseconds.
 
 if timer.Exists(test) then
-   timer.Cancel(test)
-   -- Not anymore, it won't.
+ timer.Cancel(test)
+ -- Not anymore, it won't.
 end
 ```
 
