@@ -6,6 +6,9 @@ Make sure you have the BlocklandLua DLL injected, place everything here (except 
 require('baseplate')
 ```
 
+## utility.lua
+Adds `isboolean, isnumber, isstring, isfunction` for comparing types.
+
 ## colors.lua
 Colours used in TorqueScript messages (ex. \c1) do not work in Lua and will throw an error.
 
