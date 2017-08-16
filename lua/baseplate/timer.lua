@@ -12,7 +12,7 @@ function _finishTimer( i )
 	timerTable[i] = nil
 end
 
-timer.Simple = function( delay, f )
+function timer.Simple( delay, f )
 	local i = timerCount
 	timerCount = timerCount + 1
 	timerTable[i] = f
@@ -20,10 +20,10 @@ timer.Simple = function( delay, f )
 	return idx
 end
 
-timer.Exists = function( idx )
+function timer.Exists( idx )
 	return con.isEventPending( idx )
 end
 
-timer.Cancel = function( idx )
+function timer.Cancel( idx )
 	con.cancel( idx )
 end

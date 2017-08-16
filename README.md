@@ -9,20 +9,36 @@ require('baseplate')
 ## utility.lua
 Adds `isboolean, isnumber, isstring, isfunction` for comparing types.
 
+## hook.lua
+Implements a simpler version of hooks from Garry's Mod.
+
+```Lua
+hook.Add( event, name, func ) -- adds a hook to be called when the event runs
+hook.Remove( event, name ) -- removes a hook by name
+hook.Run( event, ... ) -- calls all the hooks of a given event. if any of the hook functions return true, it stops
+```
+
+#### Default Hooks:
+
+Event | Description
+----- | -----------
+Think | Called every frame or every tick on a dedicated server (wip)
+*TODO:* actually add some
+
 ## colors.lua
 Colours used in TorqueScript messages (ex. \c1) do not work in Lua and will throw an error.
 
-TorqueScript  | Lua     | Appearance
-------------- | ------------- | -------------
-\c0     | \x01    | Red
-\c1     | \x02    | Blue
-\c2     | \x03    | Green
-\c3     | \x04    | Yellow
-\c4     | \x05    | Cyan
-\c5     | \x06    | Magenta
-\c6     | \x07    | White
-\c7     | \x0b    | Gray
-\c8     | \x0c    | Black
+TorqueScript | Lua | Appearance
+------------ | --- | ----------
+\c0 | \x01 | Red
+\c1 | \x02 | Blue
+\c2 | \x03 | Green
+\c3 | \x04 | Yellow
+\c4 | \x05 | Cyan
+\c5 | \x06 | Magenta
+\c6 | \x07 | White
+\c7 | \x0b | Gray
+\c8 | \x0c | Black
 
 Baseplate exposes a global `color` (and `colour`) table for appending colours to chat strings.
 

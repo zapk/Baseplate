@@ -1,4 +1,5 @@
 require( 'baseplate.utility' )
+require( 'baseplate.hook' )
 require( 'baseplate.meta' )
 require( 'baseplate.console' )
 require( 'baseplate.clients' )
