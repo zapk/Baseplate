@@ -13,3 +13,11 @@ end
 function isfunction(any)
   return type(any) == "function"
 end
+
+function CurTime()
+  return tonumber(con.getSimTime()) / 1000
+end
+
+function RealTime()
+  return tonumber(con.getRealTime()) / 1000
+end

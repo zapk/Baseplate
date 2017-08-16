@@ -10,6 +10,10 @@ require('baseplate')
 
 ## utility.lua
 Adds `isboolean, isnumber, isstring, isfunction` for comparing types.
+```Lua
+--[[number]]  CurTime() -- uptime in seconds; affected by timescale, lag, etc. good for timing game events
+--[[number]]  RealTime() -- system time in seconds, not affected by the game
+```
 
 ## hook.lua
 Implements a simpler version of hooks from Garry's Mod.
