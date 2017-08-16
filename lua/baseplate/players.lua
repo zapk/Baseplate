@@ -3,157 +3,157 @@ local clientMeta = FindMetaTable( "Client" )
 
 RegisterMetaTable( "Player", playerMeta )
 
+------------------------------
+
+-- a player object should only ever have 1 table
+-- this is so custom shit can be stored on player tables
+local stored = {}
+
 local function struct(objID)
-	o = {
-      objID = objID
-   }
+	local o
+
+	if stored[objID] then
+		o = stored[objID]
+	else
+		o = {
+			objID = objID
+		}
+	end
+
 	setmetatable(o, playerMeta)
 	playerMeta.__index = playerMeta
 
 	return o
 end
 
-ts.eval([[
-	function GameConnection::getPlyID(%this) {
-		return %this.player | 0;
-	}
-	function Player::getCliID(%this) {
-		return %this.client | 0;
-	}
-]])
-
 ------------------------------
 
 function clientMeta:HasPlayer()
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return nil
-   end
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return nil
+	end
 
-   local tfunc = ts.func('GameConnection', 'getPlyID')
-   return con.isObject( tfunc( sim ) )
+	return con.isObject( sim.player )
 end
 
 function clientMeta:GetPlayer()
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return nil
-   elseif not self:HasPlayer() then
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return nil
+	elseif not self:HasPlayer() then
 		error( 'client has no player' )
-      return
+		return
 	end
 
-   local tfunc = ts.func('GameConnection', 'getPlyID')
-	local plysim = ts.obj( tfunc( sim ) )
+	local plysim = ts.obj( sim.player )
 	local ply = struct( plysim.id )
-   return ply
+	return ply
 end
 
 --[[
-   METHODS
+	METHODS
 ]]--
 
 function playerMeta:HasClient()
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return nil
-   end
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return nil
+	end
 
-   local tfunc = ts.func('Player', 'getCliID')
-   return con.isObject( tfunc( sim ) )
+	return con.isObject( sim.client )
 end
 
 function playerMeta:GetClient()
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return nil
-   elseif not self:HasPlayer() then
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return nil
+	elseif not self:HasPlayer() then
 		error( 'client has no player' )
-      return
+		return
 	end
 
-   local tfunc = ts.func('Player', 'getCliID')
-	local clisim = ts.obj( tfunc( sim ) )
+	local clisim = ts.obj( sim.client )
 	local cli = clients.GetBySimID()
-   return cli
+	return cli
 end
 
 function playerMeta:GetPosition()
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return nil
-   end
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return nil
+	end
 
-   local tfunc = ts.func('Player', 'GetPosition')
+	local tfunc = ts.func('Player', 'GetPosition')
 
 	local str = tfunc( sim )
 	local x = tonumber( con.GetWord( str, 0 ) )
-   local y = tonumber( con.GetWord( str, 1 ) )
-   local z = tonumber( con.GetWord( str, 2 ) )
+	local y = tonumber( con.GetWord( str, 1 ) )
+	local z = tonumber( con.GetWord( str, 2 ) )
 
-   return Vector( x, y, z )
+	return Vector( x, y, z )
 end
 
 function playerMeta:SetPosition( vectorPos )
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return nil
-   end
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return nil
+	end
 
 	vectorPos = vectorPos or Vector( 0, 0, 0 )
 
-   local tfunc = ts.func('Player', 'SetTransform')
+	local tfunc = ts.func('Player', 'SetTransform')
 
 	tfunc( sim, tostring( vectorPos ) )
 end
 
 function playerMeta:GetVelocity()
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return nil
-   end
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return nil
+	end
 
-   local tfunc = ts.func('Player', 'GetVelocity')
+	local tfunc = ts.func('Player', 'GetVelocity')
 
 	local str = tfunc( sim )
 	local x = tonumber( con.GetWord( str, 0 ) )
-   local y = tonumber( con.GetWord( str, 1 ) )
-   local z = tonumber( con.GetWord( str, 2 ) )
+	local y = tonumber( con.GetWord( str, 1 ) )
+	local z = tonumber( con.GetWord( str, 2 ) )
 
-   return Vector( x, y, z )
+	return Vector( x, y, z )
 end
 
 function playerMeta:SetVelocity( vectorVel )
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return nil
-   end
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return nil
+	end
 
 	vectorVel = vectorVel or Vector( 0, 0, 0 )
 
-   local tfunc = ts.func('Player', 'SetVelocity')
+	local tfunc = ts.func('Player', 'SetVelocity')
 
 	tfunc( sim, tostring( vectorVel ) )
 end
 
 function playerMeta:Kill()
-   local sim = ts.obj( self.objID )
-   if sim == nil then
-      return
-   end
+	local sim = ts.obj( self.objID )
+	if sim == nil then
+		return
+	end
 
-   local tfunc = ts.func('Player', 'Kill')
+	local tfunc = ts.func('Player', 'Kill')
 
-   tfunc( sim )
+	tfunc( sim )
 end
 
 --[[
-   METAMETHODS
+	METAMETHODS
 ]]--
 
 playerMeta.__eq = function( left, right )
-   left = left or {}
-   right = right or {}
+	left = left or {}
+	right = right or {}
 
 	if not left.objID or not right.objID then
 		return false
