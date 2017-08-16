@@ -131,10 +131,10 @@ end
 
 function clientMeta:SendMessage( ... )
 	local sim = self:GetEngineObject()
-	con.messageClient( sim.id, TagString(""), ... )
+	con.messageClient( sim, TagString(""), ... )
 end
 
 function clientMeta:SendMessageCallback( callback, ... )
 	local sim = self:GetEngineObject()
-	con.messageClient( sim.id, TagString(callback), ... )
+	con.messageClient( sim, TagString(callback), ... )
 end

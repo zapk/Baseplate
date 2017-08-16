@@ -29,6 +29,6 @@ end
 
 function BroadcastMessageCallback( callback, ... )
 	for k, v in pairs( clients.GetAll() ) do
-		v:SendMessage( callback, ... )
+		v:SendMessageCallback( callback, ... )
 	end
 end

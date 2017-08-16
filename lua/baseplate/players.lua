@@ -38,10 +38,8 @@ function clientMeta:GetPlayer()
 	local sim = self:GetEngineObject()
 
 	assert(self:HasPlayer(), 'client has no player')
-
-	local plysim = ts.obj( sim.player )
-	local ply = struct( plysim.id )
-	return ply
+	
+	return struct( ts.obj( sim.player ) )
 end
 
 --[[
