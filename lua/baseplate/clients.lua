@@ -68,7 +68,7 @@ clients = {
 
 	GetBySimID = function( objID )
 		objID = tonumber(objID)
-		for k, v in pairs( clients.Getall() ) do
+		for k, v in pairs( clients.GetAll() ) do
 			if v.objID == objID then
 				return v
 			end
