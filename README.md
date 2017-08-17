@@ -122,13 +122,14 @@ player:Kill()
 ```
 
 ## commands.lua
-Library for handling client commands and messages easily with Lua.
+Library for handling client/server commands and messages easily with Lua.
 
 ```Lua
---[[void]]   Client:SendCommand( string cmd, ... )
---[[void]]   BroadcastCommand( string cmd, ... )
---[[void]]   BroadcastMessage( ... )
---[[void]]   BroadcastMessageCallback( string callback, ... )
+--[[void]]  Client:SendCommand( string cmd, ... )
+--[[void]]  BroadcastCommand( string cmd, ... )
+--[[void]]  BroadcastMessage( ... )
+--[[void]]  BroadcastMessageCallback( string callback, ... )
+--[[void]]  commands.Register(name, callback) -- registers a slash command, see below for callback details
 ```
 #### Example:
 ```Lua
@@ -138,6 +139,13 @@ client:SendCommand('MsgBoxOK', 'Hello', 'Just click "OK" please.') -- Sends a cl
 client:SendMessage(colors.white .. 'This is white, ' .. client:GetName() .. '!') -- Sends a message to the client.
 
 BroadcastMessageCallback('MsgAdminForce', colors.green .. 'Mr Queeba has become Super Admin (Auto)') -- Sends a message to all clients.
+
+--adds /KillMe please
+commands.Register("KillMe", function(client, args)
+  if client:HasPlayer() and args[1] == "please" then
+    client:GetPlayer():Kill()
+  end
+end)
 ```
 
 ## vector.lua
