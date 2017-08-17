@@ -141,9 +141,10 @@ client:SendMessage(colors.white .. 'This is white, ' .. client:GetName() .. '!')
 BroadcastMessageCallback('MsgAdminForce', colors.green .. 'Mr Queeba has become Super Admin (Auto)') -- Sends a message to all clients.
 
 --adds /KillMe please
-commands.Register("KillMe", function(client, args)
+commands.Register('KillMe', function(client, args)
   if client:HasPlayer() and args[1] == "please" then
     client:GetPlayer():Kill()
+    client:SendMessage(colors.white .. 'Since you asked nicely, ' .. colors.cyan .. client:GetName())
   end
 end)
 ```
