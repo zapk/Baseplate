@@ -17,6 +17,7 @@ local function struct(objID)
 		o = {
 			objID = objID
 		}
+		stored[objID] = o
 	end
 
 	setmetatable(o, clientMeta)
@@ -80,6 +81,10 @@ clients = {
 --[[
 	METHODS
 ]]--
+
+function clientMeta:__tostring()
+	return 'Client: ' .. self:GetName()
+end
 
 function clientMeta:GetEngineObject()
 	local sim = ts.obj( self.objID )

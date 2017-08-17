@@ -27,9 +27,13 @@ function hook.Run( event, ... )
   if stored[event] == nil then return end
 
   for k, v in pairs(stored[event]) do
-    local isOverride = v(...)
+    local success, result = pcall(v, ...)
 
-    if isOverride then
+    if not success then
+      print('Error in "' .. event .. '" hook:')
+      con.error(result)
+    elseif result then
+      -- Override
       return
     end
   end

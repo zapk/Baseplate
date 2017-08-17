@@ -18,6 +18,7 @@ local function struct(objID)
 		o = {
 			objID = objID
 		}
+		stored[objID] = o
 	end
 
 	setmetatable(o, playerMeta)
@@ -38,13 +39,17 @@ function clientMeta:GetPlayer()
 	local sim = self:GetEngineObject()
 
 	assert(self:HasPlayer(), 'client has no player')
-	
-	return struct( ts.obj( sim.player ) )
+
+	return struct( tonumber( sim.player ) )
 end
 
 --[[
 	METHODS
 ]]--
+
+function playerMeta:__tostring()
+	return 'Player: ' .. (self:HasClient() and self:GetClient():GetName() or 'nil')
+end
 
 function playerMeta:GetEngineObject()
 	local sim = ts.obj( self.objID )
