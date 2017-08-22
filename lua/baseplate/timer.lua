@@ -1,31 +1,22 @@
--- usage:
--- timer(1000, function() print("hey") end)
-
-timerCount = timerCount or 0
-timerTable = timerTable or {}
-
 timer = {}
 
-function _finishTimer( i )
-  assert(timerTable[i])
-	timerTable[i]()
-	timerTable[i] = nil
-end
+local simpleTimers = {}
 
-function timer.Simple( delay, f )
-	local i = timerCount
-	timerCount = timerCount + 1
-	timerTable[i] = f
-	local idx = con.schedule( delay * 1000, 0, 'luaCall', '_finishTimer', i )
-	return idx
-end
+hook.Add('Think', 'baseplate.timer', function()
+	local now = CurTime()
+	for i, v in ipairs(simpleTimers) do
+		if now >= v.finishTime then
+			table.remove(simpleTimers, i)
+			v.callback()
+		end
+	end
+end)
 
-function timer.Exists( idx )
-	return con.isEventPending( idx )
-end
-
-function timer.Cancel( idx )
-	con.cancel( idx )
+function timer.Simple( delay, callback )
+	table.insert(simpleTimers, {
+		finishTime = CurTime() + delay,
+		callback = callback
+	})
 end
 
 function _baseplateThink()

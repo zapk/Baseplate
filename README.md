@@ -204,17 +204,16 @@ print(client:IsJohn()) -- Yup.
 
 ## timer.lua
 Timer library that hooks into Torque schedules.
+
+```Lua
+--[[void]]   timer.Simple( number delay, function callback )
+```
 #### Example:
 ```Lua
 local test = timer.Simple( 1, function()
   print('Hello!')
 end )
 -- Will print 'Hello!' in 1 second.
-
-if timer.Exists(test) then
-  timer.Cancel(test)
-  -- Not anymore, it won't.
-end
 ```
 
 ## console.lua
