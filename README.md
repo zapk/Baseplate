@@ -15,9 +15,17 @@ require('baseplate')
 - [BlocklandLoader](https://github.com/qoh/BlocklandLoader)
 - [BlocklandLua](https://github.com/qoh/BlocklandLua)
 
-## Documentation
+## Table of contents
 
-Refer to the [Wiki](https://github.com/zapk/baseplate/wiki).
+- [clients.lua](#clientslua)
+- [colors.lua](#colorslua)
+- [commands.lua](#commandslua)
+- [hook.lua](#hooklua)
+- [meta.lua](#metalua)
+- [players.lua](#playerslua)
+- [timer.lua](#timerlua)
+- [utility.lua](#utilitylua)
+- [vector.lua](#vectorlua)
 
 ## clients.lua
 Library for handling Blockland clients with Lua.
