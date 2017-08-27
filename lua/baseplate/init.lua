@@ -1,3 +1,7 @@
+baseplate = {
+	version = "0.3.0"
+}
+
 require( 'baseplate.utility' )
 require( 'baseplate.hook' )
 require( 'baseplate.meta' )
