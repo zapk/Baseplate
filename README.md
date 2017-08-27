@@ -160,6 +160,7 @@ Library for vectors that are easier to work with than Torque's. Similar to [Garr
 --[[number]] Vector:Dot( Vector other )
 --[[number]] Vector:Length()
 --[[void]]   Vector:Normalize()
+--[[vector]] Vector:GetNormalized()
 
 tostring( Vector(1, 2, 3) ) -- returns "1 2 3"
 ```

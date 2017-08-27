@@ -1,20 +1,3 @@
--- void	  Vector:Add( Vector other )
--- void	  Vector:Sub( Vector other )
--- vector	Vector:Cross( Vector other )
--- number	Vector:Distance( Vector other )
--- number	Vector:Dot( Vector other )
--- number	Vector:Length()
--- void	  Vector:Normalize()
-
--- You can also use operators on vectors to get results.
--- ex.		Vector(1, 0, 1) + Vector(1, 0, 0) is the same as Vector(2, 0, 1)
--- ex.		Vector(1, 0, 1) - Vector(1, 0, 0) is the same as Vector(0, 0, 1)
--- ex.		Vector(1, 0, 1) / 2 is the same as Vector(0.5, 0, 0.5)
--- ex.		Vector(1, 0, 1) * 2 is the same as Vector(2, 0, 2)
--- ex.		Vector(1, 0, 1) ^ 2 is the same as Vector(1, 0, 1) - exponential, 1 squared is 1 :P
-
--- tostring( Vector(1, 2, 3) ) will return "1 2 3"
-
 local vectorMeta = {}
 
 RegisterMetaTable( "Vector", vectorMeta )
@@ -59,41 +42,48 @@ function vectorMeta:Sub( other )
 end
 
 function vectorMeta:Cross( other )
-	other = other or {}
+	other = other or Vector()
+	local vec = Vector()
 
-	local crossProduct = con.VectorCross( tostring(self), tostring(other) )
+	vec.x = ( self.y * other.z ) - ( other.y * self.z )
+	vec.y = ( self.z * other.x ) - ( other.z * self.x )
+	vec.z = ( self.x * other.y ) - ( other.x * self.y )
 
-	local x = tonumber( con.GetWord( crossProduct, 0 ) )
-	local y = tonumber( con.GetWord( crossProduct, 1 ) )
-	local z = tonumber( con.GetWord( crossProduct, 2 ) )
-
-	return Vector( x, y, z )
+	return vec
 end
 
 function vectorMeta:Distance( other )
-	other = other or {}
+	other = other or Vector()
+	local vec = self - other
 
-	return tonumber( con.VectorDist( tostring(self), tostring(other) ) )
+	return vec:Length()
 end
 
 function vectorMeta:Dot( other )
-	other = other or {}
+	other = other or Vector()
 
-	return tonumber( con.VectorDot( tostring(self), tostring(other) ) )
+	return (self.x  * other.x) + (self.y * other.y) + (self.z * other.z)
 end
 
 function vectorMeta:Length()
-	return tonumber( con.VectorLen( tostring(self) ) )
+	return math.sqrt( (self.x * self.x) + (self.y * self.y) + (self.z * self.z) )
 end
 
 function vectorMeta:Normalize()
-	local norm = con.VectorNormalize( tostring(self) )
+	local length = self:Length()
 
-	self.x = tonumber( con.GetWord( norm, 0 ) )
-	self.y = tonumber( con.GetWord( norm, 1 ) )
-	self.z = tonumber( con.GetWord( norm, 2 ) )
+	self.x = self.x / length
+	self.y = self.y / length
+	self.z = self.z / length
 
 	return self
+end
+
+function vectorMeta:GetNormalized()
+	local new = Vector(self.x, self.y, self.z)
+	new:Normalize()
+
+	return new
 end
 
 --[[
