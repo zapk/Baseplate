@@ -1,4 +1,4 @@
-# baseplate
+# Baseplate
 [![GitHub (pre-)release](https://img.shields.io/github/release/zapk/baseplate/all.svg)](https://github.com/zapk/baseplate/releases)
 
 A set of essential libraries for working with Lua in Blockland.
