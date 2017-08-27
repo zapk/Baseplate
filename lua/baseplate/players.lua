@@ -72,7 +72,7 @@ function playerMeta:GetClient()
 	return cli
 end
 
-function playerMeta:GetPosition()
+function playerMeta:GetPos()
 	local sim = self:GetEngineObject()
 
 	local tfunc = ts.func('Player', 'GetPosition')
@@ -85,7 +85,7 @@ function playerMeta:GetPosition()
 	return Vector( x, y, z )
 end
 
-function playerMeta:SetPosition( vectorPos )
+function playerMeta:SetPos( vectorPos )
 	local sim = self:GetEngineObject()
 
 	vectorPos = vectorPos or Vector( 0, 0, 0 )
