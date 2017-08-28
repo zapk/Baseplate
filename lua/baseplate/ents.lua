@@ -27,6 +27,7 @@ function ents.GetAll()
 	return ents.FindInSphere(Vector(), 2^1023)
 end
 
+-- significantly faster when you don't need to deal with tens of thousands of pesky bricks
 function ents.GetAllButBricks()
 	return ents.FindInSphere(Vector(), 2^1023, allButBricksMask)
 end

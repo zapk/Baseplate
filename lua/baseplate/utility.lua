@@ -18,6 +18,11 @@ function istable(any)
 	return type(any) == "table"
 end
 
+function tobool(any)
+	if ( any == nil or any == false or any == 0 or any == "0" or any == "false" ) then return false end
+	return true
+end
+
 function IsValid(any)
 	return istable(any) and any.IsValid and any:IsValid()
 end

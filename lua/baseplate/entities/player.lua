@@ -1,14 +1,14 @@
-local playerMeta = {}
+local meta = {}
 
-RegisterMetaTable( "Player", playerMeta )
-DefineEntityDerivative( "Player", playerMeta )
+RegisterMetaTable( "Player", meta )
+DefineEntityDerivative( "Player", meta )
 
-function playerMeta:HasClient()
+function meta:HasClient()
 	local sim = self:GetEngineObject()
 	return con.isObject( sim.client )
 end
 
-function playerMeta:GetClient()
+function meta:GetClient()
 	local sim = self:GetEngineObject()
 
 	assert(self:HasClient(), 'player has no client')
@@ -18,7 +18,7 @@ function playerMeta:GetClient()
 	return cli
 end
 
-function playerMeta:Kill()
+function meta:Kill()
 	local sim = self:GetEngineObject()
 	local tfunc = ts.func('Player', 'Kill')
 	tfunc( sim )
