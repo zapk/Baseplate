@@ -34,3 +34,9 @@ end
 function RealTime()
   return tonumber(con.getRealTime()) / 1000
 end
+
+function DumpTable(tab)
+	for k, v in pairs(tab) do
+		print(tostring(k) .. "   " .. tostring(v))
+	end
+end
