@@ -11,6 +11,7 @@ require( 'baseplate.entity' )
 require( 'baseplate.clients' )
 
 require( 'baseplate.entities.player' )
+require( 'baseplate.entities.fxdtsbrick' )
 
 require( 'baseplate.ents' )
 
