@@ -14,6 +14,14 @@ function isfunction(any)
   return type(any) == "function"
 end
 
+function istable(any)
+	return type(any) == "table"
+end
+
+function IsValid(any)
+	return istable(any) and any.IsValid and any:IsValid()
+end
+
 function CurTime()
   return tonumber(con.getSimTime()) / 1000
 end

@@ -191,8 +191,9 @@ end )
 ```
 
 ## utility.lua
-Adds `isboolean, isnumber, isstring, isfunction` for comparing types.
+Adds `isboolean, isnumber, isstring, isfunction, istable` for comparing types.
 ```Lua
+--[[bool]]    IsValid(any) -- true if any:IsValid() exists and returns true
 --[[number]]  CurTime() -- uptime in seconds; affected by timescale, lag, etc. good for timing game events
 --[[number]]  RealTime() -- system time in seconds, not affected by the game
 ```
