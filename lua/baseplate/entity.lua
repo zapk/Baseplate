@@ -1,9 +1,10 @@
+-- Entities represent physical objects
+-- classes represented by Entites should inherit SceneObject or shit might break
+
 local entMeta = {}
 entMeta.__index = entMeta
 
 RegisterMetaTable( "Entity", entMeta )
-
-------------------------------
 
 -- an entity object should only ever have 1 table
 -- this is so custom shit can be stored on entity tables
@@ -81,6 +82,7 @@ function entMeta:SetName(name)
 end
 
 function entMeta:__tostring()
+	-- asterisk (*) signifying there is no handler for this class in Lua yet
 	return 'Entity(*' .. self:GetClass() .. '): ' .. self:GetID()
 end
 
@@ -93,14 +95,10 @@ end
 
 function entMeta:GetPos()
 	local sim = self:GetEngineObject()
-
-	local str = ts.func(self:GetClass(), 'getPosition')( sim )
-	local x = tonumber( con.GetWord( str, 0 ) )
-	local y = tonumber( con.GetWord( str, 1 ) )
-	local z = tonumber( con.GetWord( str, 2 ) )
-
-	return Vector( x, y, z )
+	local sp = string.Split(ts.func(self:GetClass(), 'getPosition')( sim ), " ")
+	return Vector( sp[1], sp[2], sp[3] )
 end
+entMeta.GetPosition = entMeta.GetPos
 
 function entMeta:SetPos( vectorPos )
 	local sim = self:GetEngineObject()
@@ -109,22 +107,56 @@ function entMeta:SetPos( vectorPos )
 
 	ts.func(self:GetClass(), 'setTransform')( sim, tostring( vectorPos ) )
 end
+entMeta.SetPosition = entMeta.SetPos
 
 function entMeta:GetVelocity()
 	local sim = self:GetEngineObject()
-
-	local str = ts.func(self:GetClass(), 'getVelocity')( sim )
-	local x = tonumber( con.GetWord( str, 0 ) )
-	local y = tonumber( con.GetWord( str, 1 ) )
-	local z = tonumber( con.GetWord( str, 2 ) )
-
-	return Vector( x, y, z )
+	local sp = string.Split(ts.func(self:GetClass(), 'GetVelocity')( sim ), " ")
+	return Vector( sp[1], sp[2], sp[3] )
 end
 
 function entMeta:SetVelocity( vectorVel )
 	local sim = self:GetEngineObject()
 
-	vectorVel = vectorVel or Vector( 0, 0, 0 )
+	vectorVel = vectorVel or Vector()
 
-	ts.func(self:GetClass(), 'setVelocity')( sim, tostring( vectorVel ) )
+	ts.func(self:GetClass(), 'SetVelocity')( sim, tostring( vectorVel ) )
+end
+
+function entMeta:GetForwardVector()
+	local sim = self:GetEngineObject()
+	local sp = string.Split(ts.func(self:GetClass(), 'GetForwardVector')( sim ), " ")
+	return Vector( sp[1], sp[2], sp[3] )
+end
+
+function entMeta:GetUpVector()
+	local sim = self:GetEngineObject()
+	local sp = string.Split(ts.func(self:GetClass(), 'GetUpVector')( sim ), " ")
+	return Vector( sp[1], sp[2], sp[3] )
+end
+
+function entMeta:GetScale()
+	local sim = self:GetEngineObject()
+	local sp = string.Split(ts.func(self:GetClass(), 'GetScale')( sim ), " ")
+	return Vector( sp[1], sp[2], sp[3] )
+end
+
+function entMeta:SetScale( vectorScale )
+	local sim = self:GetEngineObject()
+
+	vectorScale = vectorScale or Vector()
+
+	ts.func(self:GetClass(), 'SetScale')( sim, tostring( vectorScale ) )
+end
+
+function entMeta:GetWorldBox()
+	local sim = self:GetEngineObject()
+	local sp = string.Split(ts.func(self:GetClass(), 'GetWorldBox')( sim ), " ")
+	return Vector( sp[1], sp[2], sp[3] ), Vector( sp[4], sp[5], sp[6] )
+end
+
+function entMeta:GetWorldBoxCenter()
+	local sim = self:GetEngineObject()
+	local sp = string.Split(ts.func(self:GetClass(), 'GetWorldBoxCenter')( sim ), " ")
+	return Vector( sp[1], sp[2], sp[3] )
 end

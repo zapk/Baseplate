@@ -40,3 +40,16 @@ function DumpTable(tab)
 		print(tostring(k) .. "   " .. tostring(v))
 	end
 end
+
+function string.Split(input, delimiter)
+  local result = { }
+  local from  = 1
+  local delim_from, delim_to = string.find( input, delimiter, from  )
+  while delim_from do
+    table.insert( result, string.sub( input, from , delim_from-1 ) )
+    from  = delim_to + 1
+    delim_from, delim_to = string.find( input, delimiter, from  )
+  end
+  table.insert( result, string.sub( input, from  ) )
+  return result
+end
