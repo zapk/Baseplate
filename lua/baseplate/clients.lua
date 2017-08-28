@@ -1,4 +1,5 @@
 local clientMeta = {}
+clientMeta.__index = clientMeta
 
 RegisterMetaTable( "Client", clientMeta )
 
@@ -21,7 +22,6 @@ local function struct(objID)
 	end
 
 	setmetatable(o, clientMeta)
-	clientMeta.__index = clientMeta
 
 	return o
 end
@@ -142,4 +142,18 @@ end
 function clientMeta:SendMessageCallback( callback, ... )
 	local sim = self:GetEngineObject()
 	con.messageClient( self.objID, TagString(callback), ... )
+end
+
+function clientMeta:HasPlayer()
+	local sim = self:GetEngineObject()
+
+	return con.isObject( sim.player )
+end
+
+function clientMeta:GetPlayer()
+	local sim = self:GetEngineObject()
+
+	assert(self:HasPlayer(), 'client has no player')
+
+	return Entity( tonumber( sim.player ) )
 end
