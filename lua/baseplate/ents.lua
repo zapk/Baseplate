@@ -31,3 +31,31 @@ end
 function ents.GetAllButBricks()
 	return ents.FindInSphere(Vector(), 2^1023, allButBricksMask)
 end
+
+local classTypes = {
+	Camera = "CameraObjectType",
+	Player = "PlayerObjectType",
+	Item = "ItemObjectType",
+	WheeledVehicle = "VehicleObjectType",
+	FlyingVehicle = "VehicleObjectType",
+	fxDTSBrick = "FxBrickAlwaysObjectType",
+	fxDayCycle = "EnvironmentObjectType",
+	fxSunLight = "StaticRenderedObjectType",
+	fxPlane = "TerrainObjectType",
+	ParticleEmitterNode = "GameBaseObjectType",
+	fxLight = "StaticTSObjectType",
+	Projectile = "ProjectileObjectType"
+}
+
+function ents.FindByClass(class)
+	local t = {}
+	local mask = classTypes[class] and (ts.global["TypeMasks::" .. classTypes[class]]) or allButBricksMask
+
+	for k, ent in pairs(ents.FindInSphere(Vector(), 2^1023, mask)) do
+		if ent:GetClass() == class then
+			table.insert(t, ent)
+		end
+	end
+
+	return t
+end

@@ -23,3 +23,8 @@ function meta:Kill()
 	local tfunc = ts.func('Player', 'Kill')
 	tfunc( sim )
 end
+
+function meta:SetHeadUp( bool )
+	local sim = self:GetEngineObject()
+	ts.func('Player', 'SetHeadUp')( sim, bool )
+end

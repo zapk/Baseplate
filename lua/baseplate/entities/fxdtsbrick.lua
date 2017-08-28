@@ -33,6 +33,11 @@ function meta:GetUpBricks()
 	return t
 end
 
+function meta:GetVolume()
+	local sim = self:GetEngineObject()
+	return tonumber(ts.func('fxDTSBrick', 'GetDestructionVolume')( sim ))
+end
+
 function meta:GetAngleID()
 	local sim = self:GetEngineObject()
 	return tonumber(ts.func('fxDTSBrick', 'GetAngleID')( sim ))
@@ -156,4 +161,29 @@ end
 function meta:IsRayCasting()
 	local sim = self:GetEngineObject()
 	return tobool(ts.func('fxDTSBrick', 'IsRayCasting')( sim ))
+end
+
+function meta:GetLightID()
+	local sim = self:GetEngineObject()
+	return tonumber(ts.func('fxDTSBrick', 'GetLightID')( sim ))
+end
+
+function meta:WillCauseChainKill()
+	local sim = self:GetEngineObject()
+	return tobool(ts.func('fxDTSBrick', 'WillCauseChainKill')( sim ))
+end
+
+function meta:IsInSceneGraph()
+	local sim = self:GetEngineObject()
+	return tobool(ts.func('fxDTSBrick', 'IsInSceneGraph')( sim ))
+end
+
+function meta:IsTreeRendering()
+	local sim = self:GetEngineObject()
+	return tobool(ts.func('fxDTSBrick', 'IsTreeRendering')( sim ))
+end
+
+function meta:IsInTree()
+	local sim = self:GetEngineObject()
+	return tobool(ts.func('fxDTSBrick', 'IsInTree')( sim ))
 end
