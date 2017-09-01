@@ -1,4 +1,4 @@
-local clientMeta = FindMetaTable( "Client" )
+local clientMeta = FindMetaTable( "GameConnection" )
 
 commands = {}
 

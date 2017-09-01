@@ -1,6 +1,3 @@
--- Entities represent physical objects
--- classes represented by Entites should inherit SceneObject or shit might break
-
 local entMeta = {}
 entMeta.__index = entMeta
 
@@ -25,6 +22,8 @@ end
 
 function Entity(objID)
 	local o
+
+	assert(con.isObject(tonumber(objID)), 'no such entity')
 
 	if stored[objID] then
 		o = stored[objID]

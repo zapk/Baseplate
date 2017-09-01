@@ -10,6 +10,7 @@ require( 'baseplate.console' )
 require( 'baseplate.entity' )
 require( 'baseplate.clients' )
 
+require( 'baseplate.entities.gameconnection' )
 require( 'baseplate.entities.player' )
 require( 'baseplate.entities.fxdtsbrick' )
 
