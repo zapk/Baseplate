@@ -92,6 +92,15 @@ function entMeta:Delete()
 	stored[self.objID] = nil
 end
 
+function entMeta:Fire(funcName, ...)
+	local sim = self:GetEngineObject()
+
+	local func = ts.func(self:GetClass(), funcName)
+	assert(func, 'Cannot fire function ' .. funcName)
+
+	return func()(sim, ...)
+end
+
 function entMeta:GetPos()
 	local sim = self:GetEngineObject()
 	local sp = string.Split(ts.func(self:GetClass(), 'getPosition')( sim ), " ")
